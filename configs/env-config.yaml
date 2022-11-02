@@ -12,36 +12,34 @@ common:
 
   # AWS Environment
   AWS_REGION: 'us-east-1'
-  AWS_ACCOUNT: "123456789123"
+  AWS_ACCOUNT: "358607849468"
   TAG_STACK_NAME: "backstage-infra"
   TAG_STACK_PRODUCT: "platform"
 
   # Build and Infra Info 
   CONTAINER_PORT: '7000'
   CONTAINER_NAME: 'backstage'
-  DOMAIN_NAME: "backstage.example.com"
+  DOMAIN_NAME: "developerportal-granicus.com"
   ACM_ARN: "arn:aws:acm:region:account:certificate/my-certificate-name"
-  ECR_REPO_NAME: "backstage"
+  ECR_REPO_NAME: "backstage-lab"
   # optional will default to 'dockerfile'
   DOCKERFILE: 'dockerfile.prod'
 
   # CodePipeline repo info
-  GITHUB_APP_REPO: "myapprepo"
-  GITHUB_INFRA_REPO: "myinfrarepo"
-  GITHUB_ORG: 'myorg'
+  GITHUB_APP_REPO: "backstage"
+  GITHUB_INFRA_REPO: "backstage-on-aws"
+  GITHUB_ORG: 'dollopofsunshine'
   # Github Connection for Code* services
-  CODESTAR_CONN_ARN: "arn:aws:codestar:region:account:project/resource-specifier"
-  # Chatbot Connection for Code* notifications
-  CODESTAR_NOTIFY_ARN: "arn:aws:chatbot:region:account:chat-configuration/slack-channel/myslackchannel"
+  CODESTAR_CONN_ARN: "arn:aws:codestar-connections:us-east-1:358607849468:connection/45c64eed-2862-4ad4-a250-4cacd26911cd"
   # can define the following but defaults to 'main'
   # GITHUB_INFRA_BRANCH
   # GITHUB_APP_BRANCH
 
   # github secret lookup, used by app to configure integration to github
-  GITHUB_APP_ARN: "arn:aws:secretsmanager:region:account:secret:mysecret"
+  GITHUB_APP_ARN: "arn:aws:secretsmanager:us-east-1:358607849468:secret:GITHUB_AUTH_SECRET_NAME-fOBJZ"
 
   # AWS Secret Name use by APP for auth to aws services.
-  AWS_AUTH_SECRET_NAME: "myawsauthsecret"
+  AWS_AUTH_SECRET_NAME: "AWS_AUTH_SECRET_NAME"
 
 # ENV var overrides per stage
 stages: 
@@ -50,21 +48,9 @@ stages:
     # Routing & Discovery
     HOST_NAME: 'test-mybackstage'
     # Github OAuth Secret Name
-    GITHUB_AUTH_SECRET_NAME: "test-github-auth-secret"
+    GITHUB_AUTH_SECRET_NAME: "GITHUB_AUTH_SECRET_NAME"
     # Node Env
     NODE_ENV: 'development'
     LOG_LEVEL: 'debug'
     # stage approval will install a manual approval gate in front of a deployment action
     STAGE_APPROVAL: False
-
-  prod:
-    ### This Config overrides for prod stage
-    # Routing & Discovery
-    HOST_NAME: 'mybackstage'
-    # github OAuth secret Name 
-    GITHUB_AUTH_SECRET_NAME: "prod-github-auth-secret"
-    # stage approval will install a manual approval gate in front of a deployment action
-    STAGE_APPROVAL: True
-    # approval emails to be notified by approval action 
-    APPROVAL_EMAILS:
-      - "devops@example.com"
